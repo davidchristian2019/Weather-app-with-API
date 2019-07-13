@@ -3,12 +3,10 @@ window.addEventListener("load", () =>{
   let lat;
   let temperatureDescription=document.querySelector('.temperature-description')
   let locationTimezone=document.querySelector(".location-timezone")
-  let temperatureSelection=document.querySelector(".temperature-section");
-  const temperatureSpan=document.querySelector('.temperature-section span');
+  let temperatureSelection=document.querySelector(".temperature");
+  const temperatureSpan=document.querySelector('.temperature span');
 
-});
-
-if(navigator.geolocation){
+  if(navigator.geolocation){
     navigator.geolocation.getCurrentPosition(position=>{
         long=position.coords.longitude;
         lat=position.coords.latitude;
@@ -24,8 +22,7 @@ if(navigator.geolocation){
           return response.json();
       })
       .then(data=> {
-          console.log(data);
-          const{temperature,summary}=data.currently;
+          const{temperature,summary,icon}=data.currently;
           temperatureDegree.textContent=temperature;
           termperatureDescription.textContent=summary;
           locationTimezone.textContent=data.timezone;
@@ -42,13 +39,13 @@ if(navigator.geolocation){
               }
           })
       });
-    });
-}
+   });
+  }
 
-function setIcons(icon,iconID){
+  function setIcons(icon,iconID){
     const skycons=new Skycons({color: "white"});
     const currentIcon=icon.replace(/-/g, "_").toUpperCase();
     skycons.play();
     return skycons.set(iconID, Skycons[currentIcon]);
-}
+  }
 });
