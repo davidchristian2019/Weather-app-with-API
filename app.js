@@ -1,4 +1,4 @@
-window.addEventListener('load', ()=>{
+window.addEventListener("load", () =>{
   let long;
   let lat;
   let temperatureDescription=document.querySelector('.temperature-description')
@@ -6,17 +6,17 @@ window.addEventListener('load', ()=>{
   let temperatureSelection=document.querySelector(".temperature-section");
   const temperatureSpan=document.querySelector('.temperature-section span');
 
-}
+});
 
 if(navigator.geolocation){
-    navigator.geolocation.getCurrentPosition(position=>){
+    navigator.geolocation.getCurrentPosition(position=>{
         long=position.coords.longitude;
         lat=position.coords.latitude;
 
         const proxy="https://cors-anywhere.herokuapp.com/";
 
         const api=`${proxy}
-        ${lat},${long};
+        https://api.darksky.net/forecast/24ba2ba516d01d25c06a7b4c11df61cf/${lat},${long}`;
 
 
     fetch(api)
@@ -29,13 +29,16 @@ if(navigator.geolocation){
           temperatureDegree.textContent=temperature;
           termperatureDescription.textContent=summary;
           locationTimezone.textContent=data.timezone;
+          let celsius=(temperature-32)*(5/9);
           setIcons(icon,document.querySelector(".icon"));
 
           temperatureSection.addEventListener('click',()=>{
               if(temperatureSpan.textContent==="F"){
                   temperatureSpan.textContent="C";
+                  temperatureDegree.textContent=Math.floor(celsius);
               }else{
                   temperatureSpan.textContent="F";
+                  temperatureDegree.textContent=Math.floor(temperature);
               }
           })
       });
