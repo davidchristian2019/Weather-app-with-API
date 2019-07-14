@@ -1,4 +1,4 @@
-window.addEventListener("load", () =>{
+window.addEventListener('load', () =>{
   let long;
   let lat;
   let temperatureDescription=document.querySelector(".temperature-description");
@@ -9,6 +9,7 @@ window.addEventListener("load", () =>{
 
   if(navigator.geolocation){
     navigator.geolocation.getCurrentPosition(position=>{
+        console.log(position);
         long=position.coords.longitude;
         lat=position.coords.latitude;
 
@@ -23,12 +24,12 @@ window.addEventListener("load", () =>{
       .then(data=> {
           const{temperature,summary,icon}=data.currently;
           temperatureDegree.textContent=temperature;
-          termperatureDescription.textContent=summary;
+          temperatureDescription.textContent=summary;
           locationTimezone.textContent=data.timezone;
           let celsius=(temperature-32)*(5/9);
           setIcons(icon,document.querySelector(".icon"));
 
-          temperatureSection.addEventListener('click',()=>{
+          temperatureSelection.addEventListener('click',()=>{
               if(temperatureSpan.textContent==="F"){
                   temperatureSpan.textContent="C";
                   temperatureDegree.textContent=Math.floor(celsius);
@@ -39,6 +40,8 @@ window.addEventListener("load", () =>{
           })
       });
    });
+  }else{
+      h1.textContent="hey this is not working!"
   }
 
   function setIcons(icon,iconID){
