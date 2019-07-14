@@ -23,7 +23,7 @@ window.addEventListener('load', () =>{
       })
       .then(data=> {
           const{temperature,summary,icon}=data.currently;
-          temperatureDegree.textContent=temperature;
+          temperatureDegree.textContent=Math.floor(temperature);
           temperatureDescription.textContent=summary;
           locationTimezone.textContent=data.timezone;
           let celsius=(temperature-32)*(5/9);
@@ -35,15 +35,12 @@ window.addEventListener('load', () =>{
                   temperatureDegree.textContent=Math.floor(celsius);
               }else{
                   temperatureSpan.textContent="F";
-                  temperatureDegree.textContent=temperature;
+                  temperatureDegree.textContent=Math.floor(temperature);
               }
           })
       });
    });
-  }else{
-      h1.textContent="hey this is not working!"
   }
-
   function setIcons(icon,iconID){
     const skycons=new Skycons({color: "white"});
     const currentIcon=icon.replace(/-/g, "_").toUpperCase();
